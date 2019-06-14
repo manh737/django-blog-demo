@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from blog.models import Post,Comment
 from django.contrib.auth.hashers import make_password
 from django.urls import reverse_lazy,reverse
@@ -19,7 +19,7 @@ def home(request, username=None):
     first_name = ''
     last_name = ''
     if username:
-        user = User.objects.get(username=username)
+        user = get_object_or_404(User,username=username)
         first_name = user.first_name
         last_name = user.last_name
         post_list = Post.objects.filter(user=user)
